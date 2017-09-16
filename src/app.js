@@ -1,7 +1,13 @@
+'use strict'
+
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
 const router = express.Router();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false }));
 
 const route = router.get('/', (req, res, next) => {
     res.status(200).send({
@@ -11,9 +17,24 @@ const route = router.get('/', (req, res, next) => {
 });
 
 const create = router.post('/', (req, res, next) => {
-    res.status(200).send();
+    res.status(201).send(req.body);
+});
+
+const update = router.put('/:id', (req, res, next) => {
+    let id = req.params.id;
+    res.status(200).send({ 
+        id: id,
+        item: req.body 
+    });
+});
+
+const remove = router.delete('/:id', (req, res, next) => {
+    res.status(201).send(req.body);
 });
 
 app.use('/', route);
+app.use('/products', create);
+app.use('/products', update);
+app.use('/products', remove);
 
 module.exports = app;
