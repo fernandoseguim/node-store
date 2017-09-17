@@ -10,6 +10,9 @@ const router = express.Router();
 //database connection
 mongoose.connect('mongodb://seguim:2316@ds036967.mlab.com:36967/mongo-nodestore');
 
+//load models
+const Product = require('./models/product');
+
 // load routes
 const indexRoute = require('./routes/index-route');
 const productRoute = require('./routes/product-route');
